@@ -36,8 +36,8 @@ cd caesar_cipher
 ### 2. Compile and run
 
 ```Bash
-javac Solution.java
-java Solution
+javac Main.java
+java Main
 ```
 
 📄 License
