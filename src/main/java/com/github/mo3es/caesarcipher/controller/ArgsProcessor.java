@@ -1,7 +1,7 @@
 package com.github.mo3es.caesarcipher.controller;
 
 import com.github.mo3es.caesarcipher.model.CipherMode;
-import com.github.mo3es.caesarcipher.service.CaesarEncoderDecoder;
+import com.github.mo3es.caesarcipher.service.CaesarProcessor;
 import com.github.mo3es.caesarcipher.service.PathChecker;
 import java.nio.file.Path;
 
@@ -59,7 +59,7 @@ public class ArgsProcessor {
             }
         }
 
-        CaesarEncoderDecoder ced = new CaesarEncoderDecoder(mode, srcPath, destPath, key);
+        CaesarProcessor ced = new CaesarProcessor(mode, srcPath, destPath, key);
         ced.start();
     }
 }

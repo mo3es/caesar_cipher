@@ -1,27 +1,9 @@
 package com.github.mo3es.caesarcipher.util;
 
+import com.github.mo3es.caesarcipher.model.Language;
+
 public class LanguageDetector {
 
-    public enum Language {
-        UKRAINIAN(33),
-        RUSSIAN(33),
-        POLISH(32),
-        SPANISH(27),
-        GERMAN(30), // або 26 без умлаутів
-        FRENCH(26),
-        ENGLISH(26),
-        UNKNOWN(26);
-
-        private final int alphabetSize;
-
-        Language(int alphabetSize) {
-            this.alphabetSize = alphabetSize;
-        }
-
-        public int getAlphabetSize() {
-            return alphabetSize;
-        }
-    }
 
     public static Language detectLanguage(String text) {
         if (text == null || text.isBlank()) {
@@ -41,7 +23,7 @@ public class LanguageDetector {
         String lowerText = text.toLowerCase();
 
         for (char c : lowerText.toCharArray()) {
-            // 1. Перевірка європейських латинських маркерів
+            // латинські країно-специфічні маркери
             if (c == 'ñ') {
                 spanishSpecific++;
                 latinCount++;
@@ -57,26 +39,25 @@ public class LanguageDetector {
                 frenchSpecific++;
                 latinCount++;
             }
-            // 2. Звичайна латиниця (a-z)
+            // загальна латинка (a-z)
             else if (c >= 'a' && c <= 'z') {
                 latinCount++;
             }
-            // 3. Кирилиця (загальна)
+            // загальна кирилиця
             else if (c >= '\u0400' && c <= '\u04FF') {
                 cyrillicCount++;
 
-                // Українські маркери
+                // українські маркери
                 if (c == 'і' || c == 'ї' || c == 'є' || c == 'ґ') {
                     ukrainianSpecific++;
                 }
-                // Російські маркери
+                // російські маркери
                 if (c == 'ы' || c == 'э' || c == 'ё' || c == 'ъ') {
                     russianSpecific++;
                 }
             }
         }
 
-        // Визначення за пріоритетом специфічних маркерів
         if (polishSpecific > 0) return Language.POLISH;
         if (spanishSpecific > 0) return Language.SPANISH;
         if (germanSpecific > 0) return Language.GERMAN;
@@ -85,14 +66,12 @@ public class LanguageDetector {
         if (ukrainianSpecific > 0) return Language.UKRAINIAN;
         if (russianSpecific > 0) return Language.RUSSIAN;
 
-        // Якщо специфічних знаків немає, оцінюємо загальні групи
         if (cyrillicCount > latinCount) {
-            // Якщо кирилиця є, але маркери не спрацювали, за замовчуванням ближче до української/російської
+
             return Language.UKRAINIAN;
         } else if (latinCount > 0) {
-            return Language.ENGLISH; // Базова латиниця без акцентів за замовчуванням — англійська
+            return Language.ENGLISH;
         }
-
         return Language.UNKNOWN;
     }
 }

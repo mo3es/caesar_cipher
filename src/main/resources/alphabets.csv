@@ -1,0 +1,8 @@
+language,size,alphabet
+ENGLISH,26,abcdefghijklmnopqrstuvwxyz
+FRENCH,26,abcdefghijklmnopqrstuvwxyz
+GERMAN,30,abcdefghijklmnopqrstuvwxyzäöüß
+SPANISH,27,abcdefghijklmnñopqrstuvwxyz
+POLISH,32,aąbcćdeęfghijklłmnńoóprsśtuwyzźż
+UKRAINIAN,33,абвгґдеєжзиіїйклмнопрстуфхцчшщьюя
+RUSSIAN,33,абвгдеёжзийклмнопрстуфхцчшщъыьэюя
